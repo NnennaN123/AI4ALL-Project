@@ -1,4 +1,7 @@
 # AI4ALL-Project
+
+Link to our repo: https://github.com/NnennaN123/AI4ALL-Project
+
 CRANBerry Team's Project!
 
 ## Overview
