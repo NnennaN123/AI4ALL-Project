@@ -74,21 +74,64 @@ However, it shows lower recall for detecting turbines (44.8% vs 72.8%), meaning 
 
 ---
 
+### 3. XGBoost Model
+
+**Location:** `xgboost/xgboost.ipynb`
+
+The third model uses **XGBoost** (Extreme Gradient Boosting), a powerful gradient boosting framework that combines multiple weak learners (decision trees) sequentially to create a strong predictive model. XGBoost is known for its superior performance and efficiency.
+
+**Model Configuration:**
+- **Algorithm:** XGBoost Classifier
+- **Features:** Same as previous models
+  - `fraction_of_usable_area`
+  - `capacity`
+  - `wind_speed`
+  - `capacity_factor`
+- **Preprocessing:** No scaling required (tree-based models are scale-invariant)
+- **Hyperparameters:**
+  - `n_estimators=300` (number of boosting rounds)
+  - `learning_rate=0.05` (step size shrinkage)
+  - `max_depth=6` (maximum tree depth)
+  - `subsample=0.8` (row subsampling ratio)
+  - `colsample_bytree=0.8` (column subsampling ratio)
+  - `objective='binary:logistic'` (binary classification)
+  - `eval_metric='logloss'` (evaluation metric)
+
+**Performance Metrics:**
+- **ROC-AUC Score:** 0.847
+- **Accuracy:** 0.766
+- **Precision (No Turbine):** 0.796 | **Recall:** 0.839 | **F1-Score:** 0.817
+- **Precision (Turbine):** 0.708 | **Recall:** 0.645 | **F1-Score:** 0.675
+
+The XGBoost model achieves the best performance across all models with:
+- **+10.0% improvement in ROC-AUC** over Random Forest (0.847 vs 0.770)
+- **+15.8% improvement in ROC-AUC** over Logistic Regression (0.847 vs 0.732)
+- **+6.3% improvement in accuracy** over Random Forest (0.766 vs 0.703)
+- Best overall balance between precision and recall for both classes
+
+The model demonstrates strong performance in detecting turbines while maintaining good precision, making it the best choice for overall predictive performance.
+
+---
+
 ## Model Comparison
 
-| Metric | Logistic Regression | Random Forest | Winner |
-|--------|---------------------|---------------|--------|
-| **ROC-AUC** | 0.732 | 0.770 | Random Forest |
-| **Accuracy** | 0.643 | 0.703 | Random Forest |
-| **Turbine Recall** | 0.728 | 0.448 | Logistic Regression |
-| **Turbine Precision** | 0.522 | 0.663 | Random Forest |
-| **No Turbine F1** | 0.672 | 0.782 | Random Forest |
+| Metric | Logistic Regression | Random Forest | XGBoost | Winner |
+|--------|---------------------|---------------|---------|--------|
+| **ROC-AUC** | 0.732 | 0.770 | 0.847 | XGBoost |
+| **Accuracy** | 0.643 | 0.703 | 0.766 | XGBoost |
+| **Turbine Recall** | 0.728 | 0.448 | 0.645 | Logistic Regression |
+| **Turbine Precision** | 0.522 | 0.663 | 0.708 | XGBoost |
+| **No Turbine F1** | 0.672 | 0.782 | 0.817 | XGBoost |
 
 **Key Insights:**
-- The Random Forest model achieves better overall performance with higher ROC-AUC and accuracy
-- Logistic Regression has higher recall for turbines, making it better at finding all potential turbine locations (fewer false negatives)
-- Random Forest has higher precision for turbines, making it more reliable when it predicts a turbine exists (fewer false positives)
-- The choice between models depends on the use case: prioritize finding all turbines (Logistic Regression) vs. minimizing false positives (Random Forest)
+- The **XGBoost model** achieves the best overall performance with the highest ROC-AUC (0.847) and accuracy (0.766)
+- **Logistic Regression** has the highest recall for turbines (0.728), making it best at finding all potential turbine locations (fewer false negatives)
+- **XGBoost** provides the best balance between precision and recall, with the highest turbine precision (0.708) and strong recall (0.645)
+- **Random Forest** shows good overall performance but is more conservative in predicting turbines
+- The choice between models depends on the use case:
+  - **XGBoost**: Best overall performance and balanced metrics (recommended)
+  - **Logistic Regression**: Prioritize finding all turbines (higher recall)
+  - **Random Forest**: Good balance between performance and interpretability
 
 ## Data
 
@@ -102,4 +145,5 @@ Spatial matching is performed using geospatial joins to match turbines to NREL g
 
 - `logistic_regression/`: Contains the Logistic Regression model notebook, trained model, scaler, and metrics
 - `random_forest/`: Contains the Random Forest model notebook, trained model, and metrics
+- `xgboost/`: Contains the XGBoost model notebook, trained model, and metrics
 - `datasets/`: Contains the training and source data files
