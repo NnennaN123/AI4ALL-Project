@@ -1,6 +1,7 @@
 # AI4ALL-Project
 
 Link to our repo: https://github.com/NnennaN123/AI4ALL-Project
+
 Link to Streamlit App: https://cranberryai4allproject.streamlit.app/
 
 CRANBerry Team's Project!
