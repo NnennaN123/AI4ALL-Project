@@ -86,21 +86,25 @@ st.markdown("""
 def load_models_and_metrics():
     """Load trained models, scaler, and metrics from files."""
     try:
-        # Load models
-        log_reg = joblib.load('logistic_regression_wind_model.pkl')
-        rf_model = joblib.load('random_forest_wind_model.pkl')
-        scaler = joblib.load('scaler.pkl')
+        # Get the directory where this script is located
+        BASE_DIR = Path(__file__).parent
+        
+        # Load models with absolute paths
+        log_reg = joblib.load(BASE_DIR / 'logistic_regression_wind_model.pkl')
+        rf_model = joblib.load(BASE_DIR / 'random_forest_wind_model.pkl')
+        scaler = joblib.load(BASE_DIR / 'scaler.pkl')
         
         # Load metrics
-        with open('model_metrics.json', 'r') as f:
+        with open(BASE_DIR / 'model_metrics.json', 'r') as f:
             log_reg_metrics = json.load(f)
         
-        with open('random_forest_model_metrics.json', 'r') as f:
+        with open(BASE_DIR / 'random_forest_model_metrics.json', 'r') as f:
             rf_metrics = json.load(f)
         
         return log_reg, rf_model, scaler, log_reg_metrics, rf_metrics
     except FileNotFoundError as e:
-        st.error(f"⚠️ Model files not found. Please ensure all .pkl and .json files are in the same directory as this script.")
+        st.error(f"⚠️ Model files not found: {e}")
+        st.error(f"Looking in directory: {Path(__file__).parent}")
         st.stop()
 
 # Load models
