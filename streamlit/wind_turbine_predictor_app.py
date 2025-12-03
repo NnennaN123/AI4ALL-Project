@@ -540,6 +540,7 @@ with tab2:
         st.dataframe(location_features, hide_index=True, use_container_width=True)
         
         # Feature visualization
+            # Feature visualization - FIXED
         fig_features = go.Figure()
         
         features_normalized = [
@@ -555,17 +556,19 @@ with tab2:
             marker_color=['#667eea', '#764ba2', '#f093fb', '#f5576c'],
             text=[f'{f*100:.1f}%' for f in features_normalized],
             textposition='auto',
+            textfont=dict(size=14, color='white')
         ))
         
         fig_features.update_layout(
             title='Feature Values (Normalized to 100%)',
             yaxis_title='Percentage of Maximum',
+            yaxis=dict(range=[0, 100]),  # ADD THIS LINE
             height=300,
-            showlegend=False
+            showlegend=False,
+            margin=dict(l=40, r=40, t=40, b=40)  # ADD THIS LINE
         )
         
         st.plotly_chart(fig_features, use_container_width=True)
-    
     with col2:
         st.markdown("### 🎯 Model Predictions")
         
