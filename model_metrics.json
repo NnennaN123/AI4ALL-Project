@@ -1,0 +1,31 @@
+{
+    "model": "logistic_regression",
+    "roc_auc": 0.7318750421011098,
+    "classification_report": {
+        "False": {
+            "precision": 0.7792099096083026,
+            "recall": 0.5906860671685983,
+            "f1-score": 0.6719757482436725,
+            "support": 23642.0
+        },
+        "True": {
+            "precision": 0.5221234567901235,
+            "recall": 0.7276668960770819,
+            "f1-score": 0.6079930994824612,
+            "support": 14530.0
+        },
+        "accuracy": 0.6428272031855811,
+        "macro avg": {
+            "precision": 0.6506666831992131,
+            "recall": 0.65917648162284,
+            "f1-score": 0.6399844238630668,
+            "support": 38172.0
+        },
+        "weighted avg": {
+            "precision": 0.6813511084072091,
+            "recall": 0.6428272031855811,
+            "f1-score": 0.6476210409582172,
+            "support": 38172.0
+        }
+    }
+}
