@@ -1,0 +1,46 @@
+{
+    "model": "xgboost_tuned_feat_eng",
+    "baseline_metrics": {
+        "accuracy": 0.8448601068846274,
+        "f1_score": 0.8162125256036249,
+        "roc_auc": 0.9282456293791235
+    },
+    "tuned_metrics": {
+        "accuracy": 0.8783401446086136,
+        "f1_score": 0.8536862003780719,
+        "roc_auc": 0.9545143933426127
+    },
+    "best_cv_score": 0.9521889624368655,
+    "improvement": {
+        "accuracy": 0.03348003772398622,
+        "f1_score": 0.03747367477444696,
+        "roc_auc": 0.026268763963489206
+    },
+    "classification_report": {
+        "False": {
+            "precision": 0.9602999134864942,
+            "recall": 0.8395663501134549,
+            "f1-score": 0.8958837772397095,
+            "support": 23798.0
+        },
+        "True": {
+            "precision": 0.7801451111367039,
+            "recall": 0.942535132878809,
+            "f1-score": 0.8536862003780719,
+            "support": 14374.0
+        },
+        "accuracy": 0.8783401446086136,
+        "macro avg": {
+            "precision": 0.8702225123115991,
+            "recall": 0.891050741496132,
+            "f1-score": 0.8747849888088907,
+            "support": 38172.0
+        },
+        "weighted avg": {
+            "precision": 0.89246104916249,
+            "recall": 0.8783401446086136,
+            "f1-score": 0.8799939111124649,
+            "support": 38172.0
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "model_type": "XGBoost (Hyperparameter Tuned)",
+    "best_parameters": {
+        "colsample_bytree": 1.0,
+        "learning_rate": 0.1,
+        "max_depth": 8,
+        "n_estimators": 300,
+        "scale_pos_weight": 1.6201287001287001,
+        "subsample": 0.7
+    },
+    "scale_pos_weight": 1.6201287001287001,
+    "n_features": 56,
+    "n_samples": 152688
+}
