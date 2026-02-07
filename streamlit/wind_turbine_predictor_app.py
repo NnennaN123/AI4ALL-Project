@@ -278,7 +278,7 @@ with st.sidebar:
     
     model_choice = st.radio(
         "Select Prediction Model:",
-        ["🔵 Logistic Regression", "🟢 Random Forest", "🟠 XGBoost", "🔄 Compare Both"],
+        ["🔵 Logistic Regression", "🟢 Random Forest", "🟠 XGBoost"],
         help="Choose which model to use for predictions"
     )
     
@@ -287,15 +287,15 @@ with st.sidebar:
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.metric("LR ROC-AUC", f"{log_metrics['roc_auc']:.3f}")
+        st.metric("LR ROC-AUC", f"{log_metrics['roc_auc']:.2f}")
         st.metric("LR Accuracy", f"{log_metrics['classification_report']['accuracy']:.1%}")
     
     with col2:
-        st.metric("RF ROC-AUC", f"{rf_metrics['roc_auc']:.3f}")
+        st.metric("RF ROC-AUC", f"{rf_metrics['roc_auc']:.2f}")
         st.metric("RF Accuracy", f"{rf_metrics['classification_report']['accuracy']:.1%}")
     
     with col3:
-        st.metric("XGBoost ROC-AUC", f"{xg_metrics['roc_auc']:.3f}")
+        st.metric("XGBoost ROC-AUC", f"{xg_metrics['roc_auc']:.2f}")
         st.metric("XGBoost Accuracy", f"{xg_metrics['classification_report']['accuracy']:.1%}")
 
     
