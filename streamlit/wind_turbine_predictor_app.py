@@ -758,6 +758,8 @@ with tab3:
             ]
         })
         st.dataframe(log_class_df, hide_index=True, use_container_width=True)
+        st.markdown("**💡 Key Strength:** Strongest model - best balance of precision and recall")
+
     # Model comparison visualization
     st.markdown("---")
     st.markdown("### 📊 Model Performance Comparison")
@@ -803,6 +805,14 @@ with tab3:
         x=comparison_metrics['Metric'],
         y=comparison_metrics['Random Forest'],
         marker_color='#10B981',
+        text=[f'{v:.3f}' for v in comparison_metrics['Random Forest']],
+        textposition='auto',
+    ))
+    fig_comparison.add_trace(go.Bar(
+        name='XGBoost',
+        x=comparison_metrics['Metric'],
+        y=comparison_metrics['Random Forest'],
+        marker_color="#1021B9",
         text=[f'{v:.3f}' for v in comparison_metrics['Random Forest']],
         textposition='auto',
     ))
