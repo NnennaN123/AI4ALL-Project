@@ -477,8 +477,10 @@ with tab1:
             })
             st.dataframe(prob_df, hide_index=True, use_container_width=True)
             
-        else:  # Compare Both
+        else:  
             pred, prob = make_prediction(features, xg_model, use_scaler=False)
+            print (prob)
+            print (pred)
             prediction_text = "✓ Turbine Likely Present" if pred else "✗ Turbine Unlikely"
             prediction_class = "turbine-yes" if pred else "turbine-no"
             
