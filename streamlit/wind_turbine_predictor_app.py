@@ -278,7 +278,7 @@ with st.sidebar:
     
     model_choice = st.radio(
         "Select Prediction Model:",
-        ["🔵 Logistic Regression", "🟢 Random Forest", "🟠 XGBoost"],
+        ["🔵 Logistic Regression", "🟢 Random Forest", "🟠 Compare Both"],
         help="Choose which model to use for predictions"
     )
     
@@ -478,26 +478,21 @@ with tab1:
             st.dataframe(prob_df, hide_index=True, use_container_width=True)
             
         else:  
-            pred, prob = make_prediction(features, xg_model, use_scaler=False)
-            prediction_text = "✓ Turbine Likely Present" if pred else "✗ Turbine Unlikely"
-            prediction_class = "turbine-yes" if pred else "turbine-no"
-            
-            st.markdown(f'<div class="prediction-box {prediction_class}">{prediction_text}</div>', unsafe_allow_html=True)
-            
-            confidence_level, confidence_class = get_confidence_level(prob[1])
-            st.markdown(f"**Confidence:** <span class='{confidence_class}'>{confidence_level}</span> ({prob[1]*100:.1f}% probability)", unsafe_allow_html=True)
-            
-            # Gauge chart
-            st.plotly_chart(create_probability_gauge(prob[1], "Turbine Presence Probability"), use_container_width=True)
-            
-            # Probability breakdown
+            pred_lr, prob_lr = make_prediction(features, log_reg_model, use_scaler=True)
+            pred_rf, prob_rf = make_prediction(features, rf_model, use_scaler=False)
+
+            st.markdown("#### 🔵 Logistic Regression")
+            prediction_text_lr = "✓ Turbine Likely" if pred_lr else "✗ No Turbine"
+            prediction_class_lr = "turbine-yes" if pred_lr else "turbine-no"
+            st.markdown(f'<div class="prediction-box {prediction_class_lr}">{prediction_text_lr}</div>', unsafe_allow_html=True)
+
+            confidence_level_lr, confidence_class_lr = get_confidence_level(prob_lr[1])
+            st.markdown(f"**Confidence:** <span class='{confidence_class_lr}'>{confidence_level_lr}</span> ({prob_lr[1]*100:.1f}%)", unsafe_allow_html=True)
+
             st.markdown("---")
-            st.markdown("### 📊 Probability Breakdown")
-            prob_df = pd.DataFrame({
-                'Outcome': ['No Turbine', 'Turbine Present'],
-                'Probability': [f'{prob[0]*100:.2f}%', f'{prob[1]*100:.2f}%']
-            })
-            st.dataframe(prob_df, hide_index=True, use_container_width=True)
+
+            st.markdown("#### 🟢 Random Forest")
+            prediction_text_rf = "✓ Turbine Likely" if pred_rf else "✗ No Turbine"
             
             
 # TAB 2: Real Locations
