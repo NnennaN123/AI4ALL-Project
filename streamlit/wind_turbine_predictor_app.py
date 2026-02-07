@@ -12,7 +12,6 @@ import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 import joblib
-import xgboost as xgb
 import json
 from pathlib import Path
 
