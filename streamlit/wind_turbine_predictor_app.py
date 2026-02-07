@@ -811,9 +811,9 @@ with tab3:
     fig_comparison.add_trace(go.Bar(
         name='XGBoost',
         x=comparison_metrics['Metric'],
-        y=comparison_metrics['Random Forest'],
+        y=comparison_metrics['XGBoost'],
         marker_color="#1021B9",
-        text=[f'{v:.3f}' for v in comparison_metrics['Random Forest']],
+        text=[f'{v:.3f}' for v in comparison_metrics['XGBoost']],
         textposition='auto',
     ))
     
