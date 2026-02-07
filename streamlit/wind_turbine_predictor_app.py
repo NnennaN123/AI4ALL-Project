@@ -479,8 +479,6 @@ with tab1:
             
         else:  
             pred, prob = make_prediction(features, xg_model, use_scaler=False)
-            print (prob)
-            print (pred)
             prediction_text = "✓ Turbine Likely Present" if pred else "✗ Turbine Unlikely"
             prediction_class = "turbine-yes" if pred else "turbine-no"
             
