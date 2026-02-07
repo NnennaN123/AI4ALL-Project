@@ -684,7 +684,7 @@ with tab2:
 with tab3:
     st.header("Model Performance Analysis")
     
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     
     with col1:
         st.markdown("### 🔵 Logistic Regression Metrics")
@@ -736,6 +736,28 @@ with tab3:
         
         st.markdown("**💡 Key Strength:** Higher precision (66.3%) - better for final site validation to minimize false positives")
     
+    with col3:
+        st.markdown("### 🔵 Logistic Regression Metrics")
+        st.metric("ROC-AUC Score", f"{xg_metrics['roc_auc']:.3f}")
+        st.metric("Overall Accuracy", f"{xg_metrics['classification_report']['accuracy']:.1%}")
+        
+        st.markdown("#### Classification Report")
+        log_class_df = pd.DataFrame({
+            'Class': ['No Turbine', 'Turbine Present'],
+            'Precision': [
+                f"{xg_metrics['classification_report']['False']['precision']:.1%}",
+                f"{xg_metrics['classification_report']['True']['precision']:.1%}"
+            ],
+            'Recall': [
+                f"{xg_metrics['classification_report']['False']['recall']:.1%}",
+                f"{xg_metrics['classification_report']['True']['recall']:.1%}"
+            ],
+            'F1-Score': [
+                f"{xg_metrics['classification_report']['False']['f1-score']:.3f}",
+                f"{xg_metrics['classification_report']['True']['f1-score']:.3f}"
+            ]
+        })
+        st.dataframe(log_class_df, hide_index=True, use_container_width=True)
     # Model comparison visualization
     st.markdown("---")
     st.markdown("### 📊 Model Performance Comparison")
