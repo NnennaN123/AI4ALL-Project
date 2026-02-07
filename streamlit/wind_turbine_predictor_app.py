@@ -737,7 +737,7 @@ with tab3:
         st.markdown("**💡 Key Strength:** Higher precision (66.3%) - better for final site validation to minimize false positives")
     
     with col3:
-        st.markdown("### 🔵 Logistic Regression Metrics")
+        st.markdown("### 🔵 XGBoost Metrics")
         st.metric("ROC-AUC Score", f"{xg_metrics['roc_auc']:.3f}")
         st.metric("Overall Accuracy", f"{xg_metrics['classification_report']['accuracy']:.1%}")
         
@@ -777,6 +777,13 @@ with tab3:
             rf_metrics['classification_report']['True']['precision'],
             rf_metrics['classification_report']['True']['recall'],
             rf_metrics['classification_report']['True']['f1-score']
+        ],
+        'XGBoost': [
+            xg_metrics['roc_auc'],
+            xg_metrics['classification_report']['accuracy'],
+            xg_metrics['classification_report']['True']['precision'],
+            xg_metrics['classification_report']['True']['recall'],
+            xg_metrics['classification_report']['True']['f1-score']
         ]
     }
     
