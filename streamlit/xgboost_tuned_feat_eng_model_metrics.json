@@ -1,21 +1,6 @@
 {
     "model": "xgboost_tuned_feat_eng",
-    "baseline_metrics": {
-        "accuracy": 0.8448601068846274,
-        "f1_score": 0.8162125256036249,
-        "roc_auc": 0.9282456293791235
-    },
-    "tuned_metrics": {
-        "accuracy": 0.8783401446086136,
-        "f1_score": 0.8536862003780719,
-        "roc_auc": 0.9545143933426127
-    },
-    "best_cv_score": 0.9521889624368655,
-    "improvement": {
-        "accuracy": 0.03348003772398622,
-        "f1_score": 0.03747367477444696,
-        "roc_auc": 0.026268763963489206
-    },
+    "roc_auc": 0.9545143933426127,
     "classification_report": {
         "False": {
             "precision": 0.9602999134864942,
