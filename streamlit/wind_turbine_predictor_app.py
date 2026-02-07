@@ -92,6 +92,7 @@ def load_models_and_metrics():
         # Load models with absolute paths
         log_reg = joblib.load(BASE_DIR / 'logistic_regression_wind_model.pkl')
         rf_model = joblib.load(BASE_DIR / 'random_forest_wind_model.pkl')
+        xg_model = joblib.load(BASE_DIR / 'xgboost_tuned_feat_eng_wind_model.pkl')
         scaler = joblib.load(BASE_DIR / 'scaler.pkl')
         
         # Load metrics
@@ -100,15 +101,18 @@ def load_models_and_metrics():
         
         with open(BASE_DIR / 'random_forest_model_metrics.json', 'r') as f:
             rf_metrics = json.load(f)
+
+        with open(BASE_DIR / 'xgboost_tuned_feat_eng_model_metrics.json', 'r') as f:
+            xg_metrics = json.load(f)
         
-        return log_reg, rf_model, scaler, log_reg_metrics, rf_metrics
+        return log_reg, rf_model, xg_model, scaler, log_reg_metrics, rf_metrics, xg_metrics
     except FileNotFoundError as e:
         st.error(f"⚠️ Model files not found: {e}")
         st.error(f"Looking in directory: {Path(__file__).parent}")
         st.stop()
 
 # Load models
-log_reg_model, rf_model, scaler, log_metrics, rf_metrics = load_models_and_metrics()
+log_reg_model, rf_model, xg_model, scaler, log_metrics, rf_metrics, xg_metrics = load_models_and_metrics()
 
 # Sample locations with real characteristics
 SAMPLE_LOCATIONS = {
@@ -274,14 +278,14 @@ with st.sidebar:
     
     model_choice = st.radio(
         "Select Prediction Model:",
-        ["🔵 Logistic Regression", "🟢 Random Forest", "🔄 Compare Both"],
+        ["🔵 Logistic Regression", "🟢 Random Forest", "🟠 XGBoost", "🔄 Compare Both"],
         help="Choose which model to use for predictions"
     )
     
     st.markdown("---")
     st.markdown("### 📊 Model Performance")
     
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
     with col1:
         st.metric("LR ROC-AUC", f"{log_metrics['roc_auc']:.3f}")
         st.metric("LR Accuracy", f"{log_metrics['classification_report']['accuracy']:.1%}")
@@ -289,6 +293,11 @@ with st.sidebar:
     with col2:
         st.metric("RF ROC-AUC", f"{rf_metrics['roc_auc']:.3f}")
         st.metric("RF Accuracy", f"{rf_metrics['classification_report']['accuracy']:.1%}")
+    
+    with col3:
+        st.metric("XGBoost ROC-AUC", f"{xg_metrics['roc_auc']:.3f}")
+        st.metric("XGBoost Accuracy", f"{xg_metrics['classification_report']['accuracy']:.1%}")
+
     
     st.markdown("---")
     st.markdown("### 🎯 Input Features")
@@ -323,7 +332,14 @@ with st.sidebar:
         - **Best for:** Final validation (high precision)
         - **Speed:** Fast
         """)
-    
+    with st.expander("XGBoost"):
+        st.markdown(f"""
+        - **Recall:** {xg_metrics['classification_report']['True']['recall']:.1%}
+        - **Precision:** {xg_metrics['classification_report']['True']['precision']:.1%}
+        - **Best for:** Balanced performance with feature interactions
+        - **Speed:** Moderate
+        """)
+
     st.markdown("---")
     st.markdown("### 🔗 Resources")
     st.markdown("""
