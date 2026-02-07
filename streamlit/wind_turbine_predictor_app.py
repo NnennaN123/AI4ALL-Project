@@ -843,7 +843,7 @@ with tab3:
     st.markdown("---")
     st.markdown("### 🎯 Model Selection Guide")
     
-    rec_col1, rec_col2, rec_col3 = st.columns(2)
+    rec_col1, rec_col2, rec_col3 = st.columns(3)
     
     with rec_col1:
         st.markdown("""
