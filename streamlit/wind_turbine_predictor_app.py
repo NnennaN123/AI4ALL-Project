@@ -843,7 +843,7 @@ with tab3:
     st.markdown("---")
     st.markdown("### 🎯 Model Selection Guide")
     
-    rec_col1, rec_col2 = st.columns(2)
+    rec_col1, rec_col2, rec_col3 = st.columns(2)
     
     with rec_col1:
         st.markdown("""
@@ -865,7 +865,17 @@ with tab3:
         - 🔬 Need feature importance analysis
         """)
     
-    st.info("💡 **Best Practice:** Use Logistic Regression for initial screening → Random Forest for final validation → Human expert review")
+    with rec_col3:
+        st.markdown("""
+        #### Use XGBoost When:
+        - 🚀 Seeking best overall performance
+        - 🎯 Need a balance of precision and recall
+        - 📈 Complex interactions between features are expected
+        - 💻 Can afford longer training times
+        - 🔬 Want advanced regularization to prevent overfitting
+        """)
+    
+    st.info("💡 **Best Practice:** Use Logistic Regression for initial screening → Random Forest for final validation → Human expert review and XGBoost for best overall performance")
 
 # TAB 4: About Project
 with tab4:
